@@ -1,16 +1,54 @@
 <template>
-    <div>
-    </div>
+  <div>
+    <apexchart type="line" :options="chartOptions" :series="chartSeries" />
+  </div>
 </template>
 
 <script>
 import * as XLSX from 'xlsx';
+import VueApexCharts from 'vue3-apexcharts';
 
 export default {
   name: 'tabellatempView',
+  components: {
+    apexchart: VueApexCharts,
+  },
   data() {
     return {
-      jsonData: []
+      jsonData: [],
+      chartOptions: {
+        chart: {
+          type: 'line',
+          height: 350,
+          zoom: {
+            enabled: false
+          }
+        },
+        title: {
+          text: 'Temperature Trends',
+          align: 'left'
+        },
+        xaxis: {
+          type: 'category',
+          categories: [],
+          title: {
+            text: 'Year'
+          },
+          labels: {
+            show: true,
+            rotate: 0,
+            formatter: function(val) {
+              return val;
+            }
+          }
+        },
+        yaxis: {
+          title: {
+            text: 'Temperature (°C)'
+          }
+        }
+      },
+      chartSeries: []
     };
   },
   mounted() {
@@ -29,11 +67,28 @@ export default {
         
         // Rimuovi intestazioni vuote
         json = json.filter(row => Object.values(row).some(cell => cell !== ''));
-        
-        this.jsonData = json;
-        
+
+        // Estrai gli anni e le temperature
+        const years = [];
+        const temperatures = [];
+        Object.keys(json[0]).forEach(key => {
+          if (key !== 'COMUNE') {
+            years.push(key);
+            temperatures.push(parseFloat(json[0][key]));
+          }
+        });
+
+        // Aggiorna le categorie sull'asse x
+        this.chartOptions.xaxis.categories = years;
+
+        // Aggiorna la serie del grafico
+        this.chartSeries = [{
+          name: 'Temperature',
+          data: temperatures
+        }];
+
         // Visualizza array di elementi nella console
-        console.log('Array di elementi:', this.jsonData);
+        console.log('Array di elementi:', json);
       } catch (error) {
         console.error('Error loading Excel file:', error);
       }
@@ -43,17 +98,5 @@ export default {
 </script>
 
 <style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-th {
-  background-color: #f2f2f2;
-  text-align: left;
-  font-weight: bold;
-}
+/* Stili personalizzati se necessario */
 </style>
