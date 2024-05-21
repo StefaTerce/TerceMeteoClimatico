@@ -1,18 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import tabellaView from '../views/AboutView.vue'
+import tabellatempView from '../views/TabTempView.vue'
+import tabellapreciView from '../views/TabPreciView.vue'
+import graficotempView from '../views/GraficoTempView.vue'
+import graficopreciView from '../views/GraficoPreciView.vue'
 
 const routes = [
   {
-    path: '/grafico',
-    name: 'grafico',
-    component: HomeView
+    path: '/tabellatemp',
+    name: 'tabellatemp',
+    component: tabellatempView
   },
   {
-    path: '/tabella',
-    name: 'tabella',
-    component: tabellaView
-  }
+    path: '/tabellapreci',
+    name: 'tabellapreci',
+    component: tabellapreciView
+  },
+  {
+    path: '/graficotemp',
+    name: 'graficotemp',
+    component: graficotempView
+  },
+  {
+    path: '/graficopreci',
+    name: 'graficopreci',
+    component: graficopreciView
+  },
 ]
 
 const router = createRouter({

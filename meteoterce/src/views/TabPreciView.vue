@@ -1,25 +1,36 @@
 <template>
-  <div>
-    <table v-if="jsonData.length">
-      <thead>
-        <tr>
-          <th v-for="(value, key) in jsonData[0]" :key="key">{{ key }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, index) in jsonData" :key="index">
-          <td v-for="(value, key) in row" :key="key">{{ value }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" class="text-center">
+        <v-typography variant="h4" class="my-4">
+          Tabella Precipitazioni Annue
+        </v-typography>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="12" md="10">
+        <v-table v-if="jsonData.length">
+          <thead>
+            <tr>
+              <th v-for="(value, key) in jsonData[0]" :key="key">{{ key }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, index) in jsonData" :key="index">
+              <td v-for="(value, key) in row" :key="key">{{ value }}</td>
+            </tr>
+          </tbody>
+        </v-table>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import * as XLSX from 'xlsx';
 
 export default {
-  name: 'AboutView',
+  name: 'tabellapreciView',
   data() {
     return {
       jsonData: []
@@ -31,7 +42,7 @@ export default {
   methods: {
     async loadExcelFile() {
       try {
-        const response = await fetch(new URL('@/assets/CopiaDati1.xlsx', import.meta.url));
+        const response = await fetch(new URL('@/assets/CopiaDati2.xlsx', import.meta.url));
         const arrayBuffer = await response.arrayBuffer();
         const data = new Uint8Array(arrayBuffer);
         const workbook = XLSX.read(data, { type: 'array' });

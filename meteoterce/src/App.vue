@@ -32,9 +32,9 @@ export default {
     return {
       drawer: false,
       items: [
-        { text: 'Tabella Temp. Media', icon: 'mdi-table', route: '/grafico' },
-        { text: 'Tabella Precipitazioni', icon: 'mdi-table', route: '/tabella' },
-        { text: 'Grafico Temp. Media', icon: 'mdi-chart-line', route: '/' },
+        { text: 'Tabella Temp. Media', icon: 'mdi-table', route: '/tabellatemp' },
+        { text: 'Tabella Precipitazioni', icon: 'mdi-table', route: '/tabellapreci' },
+        { text: 'Grafico Temp. Media', icon: 'mdi-chart-line', route: '/graficotemp' },
         { text: 'Grafico Precipitazioni', icon: 'mdi-chart-line', route: '/' },
       ]
     }
