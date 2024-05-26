@@ -6,6 +6,10 @@ import graficopreciView from '../views/GraficoPreciView.vue'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/graficotemp', // Redireziona la root a /about
+  },
+  {
     path: '/tabellatemp',
     name: 'tabellatemp',
     component: tabellatempView
